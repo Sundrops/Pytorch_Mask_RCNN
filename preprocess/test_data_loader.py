@@ -58,8 +58,6 @@ while True:
     batch_images, batch_image_meta, \
     batch_rpn_match, batch_rpn_bbox,\
     batch_gt_class_ids, batch_gt_boxes, batch_gt_masks = next(valid_data.get_stream())
-    batch_images = np.transpose(batch_images, (0,3,1,2))
-    
 
     images = to_variable(batch_images)
     metas = to_variable(batch_image_meta)
