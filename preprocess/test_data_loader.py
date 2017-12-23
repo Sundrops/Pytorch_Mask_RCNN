@@ -34,7 +34,7 @@ class CocoConfig(Config):
 config = CocoConfig()
 config.display()
 
-dataset_path = '/home/tensorboy/AI/walmart/DATA'
+dataset_path = './DATA'
 dataset_train = CocoDataset()
 dataset_train.load_coco(dataset_path, "train")
 dataset_train.load_coco(dataset_path, "val35k")
@@ -46,11 +46,11 @@ dataset_val.load_coco(dataset_path, "minival")
 dataset_val.prepare()
 
 
-train_data = CocoLoader(dataset_train, config, shuffle=True, augment=True, batch_size = 1, num_workers = 6)
+train_data = CocoLoader(dataset_train, config, shuffle=True, augment=True, batch_size = 1, num_workers = 4)
 print('train dataset len: {}'.format(len(train_data.dataset)))
 
 # validation data
-valid_data = CocoLoader(dataset_val, config, shuffle=False, augment=False, batch_size = 1, num_workers = 4)
+valid_data = CocoLoader(dataset_val, config, shuffle=False, augment=False, batch_size = 2, num_workers = 4)
 print('val dataset len: {}'.format(len(valid_data.dataset)))
 
 
@@ -58,6 +58,7 @@ while True:
     batch_images, batch_image_meta, \
     batch_rpn_match, batch_rpn_bbox,\
     batch_gt_class_ids, batch_gt_boxes, batch_gt_masks = next(valid_data.get_stream())
+    
 
     images = to_variable(batch_images)
     metas = to_variable(batch_image_meta)
